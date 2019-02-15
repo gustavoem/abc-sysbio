@@ -565,20 +565,68 @@ class Abcsmc:
             this_model_parameters = []
             for i in range(num_simulations):
                 this_model_parameters.append(sampled_params[mapping[i]])
+            
+            current_model = self.models[model]
+            if model == 0:
+                R_idx = current_model.kparameters + 2
+            elif model == 1:
+                R_idx = current_model.kparameters + 2
+            elif model == 2:
+                R_idx = current_model.kparameters
+            else:
+                R_idx = current_model.kparameters + 2
+            print "Simulating model " + str (model)
+            # this_model_paramters has initial concentrations in indexes
+            # raging from model.kparameters to model.nparameters 
+            print ("----> initial states = of model " + current_model.name + ": ")
+            for i in range (num_simulations):
+                print (this_model_parameters[i][current_model.kparameters:current_model.nparameters + 1])
+            print "data: " + str (self.data.values)
+            
+            # sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
+        
+            # for each initial concentration let's create a sims matrix
+            ii = 0
+            sims_for_each_exp = []
+            for initial_R in self.data.values[0]:
+                for i in range (num_simulations):
+                    this_model_parameters[i][R_idx] = initial_R
+                sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
+                sims_for_each_exp.append (sims)
+                # print "Simulations for the " + str (ii) + "-th experiment:" 
+                ii += 1
 
-            sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
             if self.debug == 2:
                 print '\t\t\tsimulation dimensions:', sims.shape
 
             for i in range(num_simulations):
                 # store the trajectories and distances in a list of length beta
+                print "num_simulation =  " + str (i)
                 this_dist = []
                 this_traj = []
                 simulation_number = mapping[i]
 
                 for k in range(self.beta):
-                    sample_points = sims[i, k, :, :]
-                    points = transform_data_for_fitting(self.models[model].fit, sample_points)
+                    print "beta = " + str (k)
+                    # sample_points = sims[i, k, :, :]
+                    # print "sims: "
+                    # print sample_points
+                    
+                    pointsT = []
+                    for l in range (len (sims_for_each_exp)):
+                        sample_points = sims_for_each_exp[l][i, k, :, :]
+                        fitted = transform_data_for_fitting(self.models[model].fit, sample_points)
+                        print "fitted on the " + str (l) + "-th experiment:"
+                        print fitted
+                        # all columns of fitted are equal in our case 
+                        # (fit function is the same for all 
+                        # experiments). The number of columns is equal 
+                        # to the number of experiments
+                        pointsT.append (fitted[:, 0])
+                    points = np.transpose (np.array (pointsT))
+                    # points = transform_data_for_fitting(self.models[model].fit, sample_points)
+                    print "points: "
+                    print points
                     if do_comp:
                         distance = self.distancefn(points, self.data.values, this_model_parameters[i], model)
                         dist = check_below_threshold(distance, epsilon)
