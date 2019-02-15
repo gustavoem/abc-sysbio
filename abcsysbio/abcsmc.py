@@ -582,10 +582,10 @@ class Abcsmc:
             print "Simulating model " + str (model)
             # this_model_paramters has initial concentrations in indexes
             # raging from model.kparameters to model.nparameters 
-            print ("----> initial states = of model " + current_model.name + ": ")
-            for i in range (num_simulations):
-                print (this_model_parameters[i][current_model.kparameters:current_model.nparameters + 1])
-            print "data: " + str (self.data.values)
+            # print ("----> initial states = of model " + current_model.name + ": ")
+            # for i in range (num_simulations):
+                # print (this_model_parameters[i][current_model.kparameters:current_model.nparameters + 1])
+            # print "data: " + str (self.data.values)
             
             # sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
         
@@ -596,14 +596,24 @@ class Abcsmc:
                 for i in range (num_simulations):
                     # observed data is in percentage of 10000 format
                     erkpp_ic = initial_erkpp_obs * 100
+                    # print "erkpp start: " + str (erkpp_ic)
+                    # print "default erkpp start: " + str (this_model_parameters[i][erkpp_idx])
+                    # print "default erk start: " + str (this_model_parameters[i][erk_idx])
                     this_model_parameters[i][erkpp_idx] = erkpp_ic
-                    this_model_parameters[i][erkpp_idx] = 10000 - erkpp_idx
+                    this_model_parameters[i][erk_idx] = 10000 - erkpp_ic
+                    
+                # print ("----> modified initial states = of model " + current_model.name + ": ")
+                # for i in range (num_simulations):
+                    # print (this_model_parameters[i][current_model.kparameters:current_model.nparameters + 1])
+
                 sims = self.models[model].simulate(
                         this_model_parameters, self.data.timepoints, 
                         num_simulations, self.beta)
                 sims_for_each_exp.append (sims)
                 # print "Simulations for the " + str (ii) + "-th experiment:" 
                 ii += 1
+            
+            
 
             if self.debug == 2:
                 print '\t\t\tsimulation dimensions:', sims.shape
@@ -625,8 +635,8 @@ class Abcsmc:
                     for l in range (len (sims_for_each_exp)):
                         sample_points = sims_for_each_exp[l][i, k, :, :]
                         fitted = transform_data_for_fitting(self.models[model].fit, sample_points)
-                        print "fitted on the " + str (l) + "-th experiment:"
-                        print fitted
+                        # print "fitted on the " + str (l) + "-th experiment:"
+                        # print fitted
                         # all columns of fitted are equal in our case 
                         # (fit function is the same for all 
                         # experiments). The number of columns is equal 
@@ -636,6 +646,8 @@ class Abcsmc:
                     # points = transform_data_for_fitting(self.models[model].fit, sample_points)
                     print "points: "
                     print points
+                    print "data: "
+                    print self.data.values
                     if do_comp:
                         distance = self.distancefn(points, self.data.values, this_model_parameters[i], model)
                         dist = check_below_threshold(distance, epsilon)
