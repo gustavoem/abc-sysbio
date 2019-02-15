@@ -568,13 +568,17 @@ class Abcsmc:
             
             current_model = self.models[model]
             if model == 0:
-                R_idx = current_model.kparameters + 2
+                erk_idx = current_model.kparameters + 11
+                erkpp_idx = current_model.kparameters + 12
             elif model == 1:
-                R_idx = current_model.kparameters + 2
+                erk_idx = current_model.kparameters + 11
+                erkpp_idx = current_model.kparameters + 12
             elif model == 2:
-                R_idx = current_model.kparameters
+                erk_idx = current_model.kparameters + 11
+                erkpp_idx = current_model.kparameters + 12
             else:
-                R_idx = current_model.kparameters + 2
+                erk_idx = current_model.kparameters + 11
+                erkpp_idx = current_model.kparameters + 12
             print "Simulating model " + str (model)
             # this_model_paramters has initial concentrations in indexes
             # raging from model.kparameters to model.nparameters 
@@ -588,10 +592,15 @@ class Abcsmc:
             # for each initial concentration let's create a sims matrix
             ii = 0
             sims_for_each_exp = []
-            for initial_R in self.data.values[0]:
+            for initial_erkpp_obs in self.data.values[0]:
                 for i in range (num_simulations):
-                    this_model_parameters[i][R_idx] = initial_R
-                sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
+                    # observed data is in percentage of 10000 format
+                    erkpp_ic = initial_erkpp_obs * 100
+                    this_model_parameters[i][erkpp_idx] = erkpp_ic
+                    this_model_parameters[i][erkpp_idx] = 10000 - erkpp_idx
+                sims = self.models[model].simulate(
+                        this_model_parameters, self.data.timepoints, 
+                        num_simulations, self.beta)
                 sims_for_each_exp.append (sims)
                 # print "Simulations for the " + str (ii) + "-th experiment:" 
                 ii += 1
