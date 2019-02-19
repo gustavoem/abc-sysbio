@@ -1,0 +1,300 @@
+
+<input>
+
+
+######################## number of models
+# Number of models for which details are described in this input file
+<modelnumber> 2 </modelnumber>
+######################## restart
+# Restart from previous (pickled) population?
+<restart> False </restart>
+
+######################## epsilon schedule
+# Automatic epsilon schedule. Provide a vector of final epsilons and the alpha (defaults to 0.9)
+<autoepsilon>
+<finalepsilon> 1.0 </finalepsilon>
+<alpha> 0.9 </alpha>
+</autoepsilon>
+
+# OR
+# Series of epsilons. (Whitespace delimited list)
+# Multiple epsilon schedules can be specified by giving additional vectors enclosed in <e2> </e2>, <e3> </e3> etc
+# NOTE: the parser always reads them in order and ignores the tag value
+<!-- <epsilon> -->
+<!-- <e1> 5.0 3.0 2.0 1.0 </e1> -->
+<!--</epsilon> -->
+
+
+######################## particles
+<particles> 100 </particles>
+
+######################## beta
+# Beta is the number of times to simulate each sampled parameter set.
+# This is only applicable for models simulated using Gillespie and SDE
+<beta> 1 </beta>
+
+######################## dt
+# Internal timestep for solver.
+# Make this small for a stiff model.
+<dt> 0.01 </dt>
+
+######################## perturbation kernels : OPTIONAL (default uniform)
+# The pertubation kernels are computed with respect to the previous parameter distribution
+# Currently uniform and normal are implemented
+<kernel> uniform </kernel>
+
+######################## model kernel : OPTIONAL (default 0.7)
+# Probability of perturbing the sampled model (ignored when modelnumber = 1)
+<modelkernel> 0.7 </modelkernel>
+
+######################## ODE solver control : OPTIONAL
+# rtol and atol can be specified here. If the model is stiff then making these small might help the simulation to run
+#<rtol> </rtol>
+#<atol> </atol>
+
+######################## User-supplied data
+<data>
+# times: For ABC SMC, times must be a whitespace delimited list
+# In simulation mode these are the timepoints for which the simulations will be output
+<times> 0 1 2 3 4 5 6 7 8 9 10 </times>
+
+
+# variables: For ABC SMC, whitespace delimited lists of concentrations (ODE or SDE) or molecule numbers (Gillespie)
+# Denote your data via tags <v1> </v1> or <var1> </var1> or <v2> </v2> etc.
+# The tags are ignored and the data read in order
+# For simulation these data are ignored
+# See fitting instruction below if the dimensionality of your data sets differ from the dimensionality of your model
+<variables>
+ <var1> </var1>
+
+</variables>
+</data>
+
+######################## Models
+<models>
+<model1>
+<name> model1 </name>
+<source> model1.xml </source>
+
+# type: the method used to simulate your model. ODE, SDE or Gillespie.
+<type> SDE </type>
+
+
+# Fitting information.
+# If fit is None, all species in the model are fitted to the data in the order they are listed in the model.
+# Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
+# Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
+# For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
+<fit> None </fit>
+
+# Priors on initial conditions and parameters:
+# one of 
+#       constant, value 
+#       normal, mean, variance 
+#       uniform, lower, upper 
+#       lognormal, mean, variance 
+
+<initial>
+ <ic1> constant 1000.0 </ic1>
+ <ic2> constant 0.0 </ic2>
+ <ic3> constant 500.0 </ic3>
+ <ic4> constant 0.0 </ic4>
+ <ic5> constant 1200.0 </ic5>
+ <ic6> constant 0.0 </ic6>
+ <ic7> constant 1200.0 </ic7>
+ <ic8> constant 1500.0 </ic8>
+ <ic9> constant 0.0 </ic9>
+ <ic10> constant 3000.0 </ic10>
+ <ic11> constant 0.0 </ic11>
+ <ic12> constant 10000.0 </ic12>
+ <ic13> constant 0.0 </ic13>
+ <ic14> constant 0.0 </ic14>
+ <ic15> constant 0.0 </ic15>
+ <ic16> constant 0.0 </ic16>
+ <ic17> constant 1000.0 </ic17>
+ <ic18> constant 0.0 </ic18>
+ <ic19> constant 1000.0 </ic19>
+ <ic20> constant 0.0 </ic20>
+ <ic21> constant 1200.0 </ic21>
+ <ic22> constant 1500.0 </ic22>
+ <ic23> constant 0.0 </ic23>
+ <ic24> constant 2400.0 </ic24>
+ <ic25> constant 0.0 </ic25>
+ <ic26> constant 0.0 </ic26>
+ <ic27> constant 0.0 </ic27>
+</initial>
+
+<parameters>
+<parameter1 realName='cell'> constant 1.0 </parameter1>
+<parameter2 realName='SosKcat'> constant 0.0010572843 </parameter2>
+<parameter3 realName='SosKm'> constant 18279.761 </parameter3>
+<parameter4 realName='Kcat'> constant 0.73061493 </parameter4>
+<parameter5 realName='Km'> constant 738.12761 </parameter5>
+<parameter6 realName='k1'> constant 1.6665105 </parameter6>
+<parameter7 realName='k1'> constant 687.15641 </parameter7>
+<parameter8 realName='Km'> constant 168.87001 </parameter8>
+<parameter9 realName='V'> constant 259.0733 </parameter9>
+<parameter10 realName='Kcat'> constant 0.0504318 </parameter10>
+<parameter11 realName='Km'> constant 4711.3334 </parameter11>
+<parameter12 realName='Kcat'> constant 17.312119 </parameter12>
+<parameter13 realName='Km'> constant 7248.9633 </parameter13>
+<parameter14 realName='Kcat'> constant 6.3224454 </parameter14>
+<parameter15 realName='Km'> constant 4666.8334 </parameter15>
+<parameter16 realName='Km'> constant 8103.3883 </parameter16>
+<parameter17 realName='V'> constant 4100.5039 </parameter17>
+<parameter18 realName='Kcat'> constant 7.7221471 </parameter18>
+<parameter19 realName='Km'> constant 9817.135 </parameter19>
+<parameter20 realName='Km'> constant 9470.8799 </parameter20>
+<parameter21 realName='V'> constant 613.43383 </parameter21>
+<parameter22 realName='Kcat'> constant 0.81973062 </parameter22>
+<parameter23 realName='Km'> constant 602.79637 </parameter23>
+<parameter24 realName='Kcat'> constant 10.240582 </parameter24>
+<parameter25 realName='Km'> constant 9559.3224 </parameter25>
+<parameter26 realName='Kcat'> constant 6.4116281 </parameter26>
+<parameter27 realName='Km'> constant 2818.0672 </parameter27>
+<parameter28 realName='Kcat'> constant 13.361394 </parameter28>
+<parameter29 realName='Km'> constant 6087.5111 </parameter29>
+<parameter30 realName='Km'> constant 5165.9729 </parameter30>
+<parameter31 realName='V'> constant 28608.154 </parameter31>
+<parameter32 realName='Kcat'> constant 0.06774163 </parameter32>
+<parameter33 realName='Km'> constant 10088.056 </parameter33>
+<parameter34 realName='Kcat'> constant 0.036278847 </parameter34>
+<parameter35 realName='Km'> constant 2626.6583 </parameter35>
+<parameter36 realName='Km'> constant 12426.919 </parameter36>
+<parameter37 realName='V'> constant 20.571563 </parameter37>
+<parameter38 realName='Kcat'> constant 0.0025122156 </parameter38>
+<parameter39 realName='Km'> constant 4403.7089 </parameter39>
+<parameter40 realName='Kcat'> constant 16.594473 </parameter40>
+<parameter41 realName='Km'> constant 2929.1431 </parameter41>
+<parameter42 realName='Kcat'> constant 13.275618 </parameter42>
+<parameter43 realName='Km'> constant 1356.9518 </parameter43>
+<parameter44 realName='Km'> constant 867.64411 </parameter44>
+<parameter45 realName='V'> constant 7.2599818 </parameter45>
+<parameter46 realName='Kcat'> constant 0.31665621 </parameter46>
+<parameter47 realName='Km'> constant 366.30473 </parameter47>
+<parameter48 realName='Kcat'> constant 8.2056076 </parameter48>
+<parameter49 realName='Km'> constant 2999.4779 </parameter49>
+<parameter50 realName='V'> constant 466.82131 </parameter50>
+<parameter51 realName='Km'> constant 73.773914 </parameter51>
+</parameters>
+</model1>
+
+<model2>
+<name> model2 </name>
+<source> model2.xml </source>
+
+# type: the method used to simulate your model. ODE, SDE or Gillespie.
+<type> SDE </type>
+
+
+# Fitting information.
+# If fit is None, all species in the model are fitted to the data in the order they are listed in the model.
+# Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
+# Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
+# For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
+<fit> None </fit>
+
+# Priors on initial conditions and parameters:
+# one of 
+#       constant, value 
+#       normal, mean, variance 
+#       uniform, lower, upper 
+#       lognormal, mean, variance 
+
+<initial>
+ <ic1> constant 0.0 </ic1>
+ <ic2> constant 0.0 </ic2>
+ <ic3> constant 500.0 </ic3>
+ <ic4> constant 0.0 </ic4>
+ <ic5> constant 1200.0 </ic5>
+ <ic6> constant 0.0 </ic6>
+ <ic7> constant 1200.0 </ic7>
+ <ic8> constant 1500.0 </ic8>
+ <ic9> constant 0.0 </ic9>
+ <ic10> constant 3000.0 </ic10>
+ <ic11> constant 0.0 </ic11>
+ <ic12> constant 10000.0 </ic12>
+ <ic13> constant 0.0 </ic13>
+ <ic14> constant 0.0 </ic14>
+ <ic15> constant 0.0 </ic15>
+ <ic16> constant 0.0 </ic16>
+ <ic17> constant 1000.0 </ic17>
+ <ic18> constant 0.0 </ic18>
+ <ic19> constant 1000.0 </ic19>
+ <ic20> constant 0.0 </ic20>
+ <ic21> constant 1200.0 </ic21>
+ <ic22> constant 1500.0 </ic22>
+ <ic23> constant 0.0 </ic23>
+ <ic24> constant 0.0 </ic24>
+ <ic25> constant 1200.0 </ic25>
+ <ic26> constant 2400.0 </ic26>
+ <ic27> constant 0.0 </ic27>
+ <ic28> constant 0.0 </ic28>
+ <ic29> constant 0.0 </ic29>
+</initial>
+
+<parameters>
+<parameter1 realName='cell'> constant 1.0 </parameter1>
+<parameter2 realName='SosKcat'> constant 0.0038910606 </parameter2>
+<parameter3 realName='SosKm'> constant 8800.8254 </parameter3>
+<parameter4 realName='Kcat'> constant 12.874829 </parameter4>
+<parameter5 realName='Km'> constant 6017.334 </parameter5>
+<parameter6 realName='k1'> constant 5.4384396 </parameter6>
+<parameter7 realName='k1'> constant 7686.8037 </parameter7>
+<parameter8 realName='Km'> constant 8378.1143 </parameter8>
+<parameter9 realName='V'> constant 2123.2066 </parameter9>
+<parameter10 realName='Kcat'> constant 0.088991477 </parameter10>
+<parameter11 realName='Km'> constant 5422.7505 </parameter11>
+<parameter12 realName='Kcat'> constant 25.048189 </parameter12>
+<parameter13 realName='Km'> constant 4950.1747 </parameter13>
+<parameter14 realName='Kcat'> constant 17.657982 </parameter14>
+<parameter15 realName='Km'> constant 5671.3432 </parameter15>
+<parameter16 realName='Km'> constant 4511.324 </parameter16>
+<parameter17 realName='V'> constant 13119.674 </parameter17>
+<parameter18 realName='Kcat'> constant 7.1920631 </parameter18>
+<parameter19 realName='Km'> constant 5007.5313 </parameter19>
+<parameter20 realName='Km'> constant 6965.9208 </parameter20>
+<parameter21 realName='V'> constant 632.51188 </parameter21>
+<parameter22 realName='Kcat'> constant 0.64842801 </parameter22>
+<parameter23 realName='Km'> constant 450.43603 </parameter23>
+<parameter24 realName='Kcat'> constant 5.1647994 </parameter24>
+<parameter25 realName='Km'> constant 12463.313 </parameter25>
+<parameter26 realName='Kcat'> constant 12.010199 </parameter26>
+<parameter27 realName='Km'> constant 12976.387 </parameter27>
+<parameter28 realName='Kcat'> constant 1.6605186 </parameter28>
+<parameter29 realName='Km'> constant 3102.3071 </parameter29>
+<parameter30 realName='Km'> constant 9681.2043 </parameter30>
+<parameter31 realName='V'> constant 13519.007 </parameter31>
+<parameter32 realName='Kcat'> constant 4.0753418 </parameter32>
+<parameter33 realName='Km'> constant 8741.8547 </parameter33>
+<parameter34 realName='Kcat'> constant 9.3450833 </parameter34>
+<parameter35 realName='Km'> constant 9699.8676 </parameter35>
+<parameter36 realName='Km'> constant 8320.3473 </parameter36>
+<parameter37 realName='V'> constant 872.75656 </parameter37>
+<parameter38 realName='Kcat'> constant 0.017410964 </parameter38>
+<parameter39 realName='Km'> constant 2013.9588 </parameter39>
+<parameter40 realName='Kcat'> constant 12.41417 </parameter40>
+<parameter41 realName='Km'> constant 3120.928 </parameter41>
+<parameter42 realName='Kcat'> constant 17.21106 </parameter42>
+<parameter43 realName='Km'> constant 9665.2665 </parameter43>
+<parameter44 realName='Km'> constant 571.28412 </parameter44>
+<parameter45 realName='V'> constant 7.5931647 </parameter45>
+<parameter46 realName='Kcat'> constant 0.20545005 </parameter46>
+<parameter47 realName='Km'> constant 685.6698 </parameter47>
+<parameter48 realName='Kcat'> constant 2.9457857 </parameter48>
+<parameter49 realName='Km'> constant 4991.8379 </parameter49>
+<parameter50 realName='V'> constant 2109.864 </parameter50>
+<parameter51 realName='Km'> constant 1075.3993 </parameter51>
+<parameter52 realName='Kcat'> constant 2.0823794 </parameter52>
+<parameter53 realName='Km'> constant 14421.281 </parameter53>
+<parameter54 realName='Kcat'> constant 5.8584626 </parameter54>
+<parameter55 realName='Km'> constant 2432.1789 </parameter55>
+<parameter56 realName='Km'> constant 193.30439 </parameter56>
+<parameter57 realName='V'> constant 462.0075 </parameter57>
+</parameters>
+</model2>
+
+</models>
+
+</input>
+

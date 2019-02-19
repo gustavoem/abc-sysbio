@@ -1,4 +1,5 @@
 import numpy
+import scipy.integrate as spi
 
 print "USING LOCAL abcodesolve.py"
 
@@ -54,16 +55,30 @@ def abcodeint(func, init_values, timepoints, parameters, dt=0.01, atol=None, rto
     counter = 0  # 1
 
     flag = True
-
+    print ("Time points: " + str (timepoints))
     # intTime1 = timepoints[0]
     int_time1 = 0
 
-    while flag:
+    # making it stiff
+    # spi.ode receives callable (t, y) while odeint receives 
+    # callable (y, t)
+    ode = spi.ode (lambda (t, y) : func.modelfunction (y, t))
+    ode.set_integrator ('vode', nsteps=500, method='bdf')
+    ode.set_initial_value (current_concentrations, int_time1)
+
+
+    while flag and ode.successful ():
 
         int_time2 = min(int_time1 + dt, timepoints[counter])
+        
+        ode.set_f_params ((parameters,))
+        data = ode.integrate (int_time2) 
+        print "my data on t1 = " + str (int_time2) + ": " +  str (data)
 
         data = odeint(func.modelfunction, current_concentrations, [int_time1, int_time2], args=(parameters,), atol=atol, rtol=rtol, mxstep=1000)
+        print "his data on t1 = " + str (int_time1) + " and t2 = "+ str (int_time2)  +  ": " +  str (data)
 
+        print ("________________-")
         data[1], parameters = func.rules(data[1], parameters, int_time2)
 
         if (timepoints[counter] - int_time2) < 0.000000001:

@@ -50,8 +50,8 @@
 
 ######################## ODE solver control : OPTIONAL
 # rtol and atol can be specified here. If the model is stiff then making these small might help the simulation to run
-<rtol> 1e-1 </rtol>
-<atol> 1e-1 </atol>
+<rtol> 1e-2 </rtol>
+<atol> 1e-2 </atol>
 
 ######################## User-supplied data
 <data>
