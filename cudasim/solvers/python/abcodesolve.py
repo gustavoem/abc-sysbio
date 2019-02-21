@@ -1,6 +1,8 @@
 import numpy
 import scipy.integrate as spi
 
+import scipy
+
 print "USING LOCAL abcodesolve.py"
 
 try:
@@ -44,38 +46,48 @@ def abcodeint(func, init_values, timepoints, parameters, dt=0.01, atol=None, rto
             For a stiff model a small absolute error tolerance is required for a successful simulation.
 
     """
-
+    
+    print ("Func: " + str (func))
+    
     # array for the data that the user wants
     solutions_out = numpy.zeros([len(timepoints), len(init_values)])
     current_concentrations = tuple(init_values)
     # current_concentrations,parameters=func.rules(current_concentrations, parameters, timepoints[0])
     current_concentrations, parameters = func.rules(current_concentrations, parameters, 0)
+    print ("Parameters: " + str (parameters))
     solutions_out[0] = current_concentrations
 
-    counter = 0  # 1
+    counter = 1
 
     flag = True
     print ("Time points: " + str (timepoints))
     # intTime1 = timepoints[0]
-    int_time1 = 0
+    int_time1 = 0.0
 
     # making it stiff
     # spi.ode receives callable (t, y) while odeint receives 
     # callable (y, t)
-    ode = spi.ode (lambda (t, y) : func.modelfunction (y, t))
+    def my_sys_fun (t, y, args):
+        #print (t)
+        #print (y)
+        #print ("Got args = " + str (args))
+        return list (func.modelfunction (y, t, args))
+
+    ode = spi.ode (my_sys_fun)
     ode.set_integrator ('vode', nsteps=500, method='bdf')
     ode.set_initial_value (current_concentrations, int_time1)
 
-
     while flag and ode.successful ():
-
         int_time2 = min(int_time1 + dt, timepoints[counter])
-        
-        ode.set_f_params ((parameters,))
+        print ("time2 = " + str (int_time2))
+        ode.set_f_params (parameters)
+        print "integrator starts at t = " + str (ode.t)
         data = ode.integrate (int_time2) 
         print "my data on t1 = " + str (int_time2) + ": " +  str (data)
+        code = ode.get_return_code ()
+        print "ode integration code: " + str (code)
 
-        data = odeint(func.modelfunction, current_concentrations, [int_time1, int_time2], args=(parameters,), atol=atol, rtol=rtol, mxstep=1000)
+        data = odeint(func.modelfunction, current_concentrations, [int_time1, int_time2], args=(parameters,), atol=atol, rtol=rtol)
         print "his data on t1 = " + str (int_time1) + " and t2 = "+ str (int_time2)  +  ": " +  str (data)
 
         print ("________________-")
