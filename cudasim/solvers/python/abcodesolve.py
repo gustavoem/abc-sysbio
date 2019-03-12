@@ -7,6 +7,7 @@ except ImportError:
     def odeint(fun, conc, times, args, atol, rtol):
         return 0
 
+print ">>>>>>> Using local version of abcodesolve.py"
 
 def abcodeint(func, init_values, timepoints, parameters, dt=0.01, atol=None, rtol=None):
     """Call scipy.integrate.odeint.

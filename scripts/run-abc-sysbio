@@ -1,9 +1,8 @@
 #!/usr/bin/python2.7
 
 import sys
-sys.path.insert (0, '..')
+sys.path.insert (0, '../../')
 sys.path.insert (0, '../../cuda-sim/')
-print sys.path
 
 import matplotlib
 matplotlib.use('Agg')

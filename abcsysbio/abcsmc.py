@@ -40,6 +40,8 @@ fit:
 # distances are stored as [nparticle][nbeta][d1, d2, d3 .... ]
 # trajectories are stored as [nparticle][nbeta][ species ][ times ]
 
+print ">>>>>>> Using local version of abcsmc.py"
+
 class AbcsmcResults:
     def __init__(self,
                  naccepted,
