@@ -1,7 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python2.7
+
+import sys
+sys.path.insert (0, '../..')
 
 from abcsysbio import generateTemplate
-import sys
 import argparse
 
 if __name__ == '__main__':
