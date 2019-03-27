@@ -122,7 +122,7 @@ def check_input_abc(info_new, results_dir, custom_distance, design):
     ode = re.compile('ODE')
     gillespie = re.compile('Gillespie')
 
-    prior_types = [PriorType.constant, PriorType.normal, PriorType.uniform, PriorType.lognormal]
+    prior_types = [PriorType.constant, PriorType.normal, PriorType.uniform, PriorType.lognormal, PriorType.gamma]
 
     for mod in range(len(model_name)):
 
@@ -150,6 +150,11 @@ def check_input_abc(info_new, results_dir, custom_distance, design):
             if priors[mod][param].type == PriorType.lognormal:
                 if not (priors[mod][param].mu >= 0 or priors[mod][param].sigma >= 0):
                     return False, "\nThe mean or scale of the lognormal prior distribution of parameter " + \
+                        repr(param + 1) + " in model " + model_name[mod] + " is wrong defined!\n"
+            
+            if priors[mod][param].type == PriorType.gamma:
+                if not (priors[mod][param].shape >= 0 or priors[mod][param].scale >= 0):
+                    return False, "\nThe mean or scale of the gamma prior distribution of parameter " + \
                         repr(param + 1) + " in model " + model_name[mod] + " is wrong defined!\n"
 
     # check arguments connected to pickling

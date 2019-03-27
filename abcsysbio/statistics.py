@@ -78,6 +78,32 @@ def get_pdf_lognormal(m, sigma, x):
     return x
 
 
+def _gamma_fun_forint(n):
+    """ Calculates the gamma function of an integer. """
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return (n - 1) * _gamma_fun_forint(n - 1)
+    return 
+
+
+def get_pdf_gamma(shape, scale, x):
+    """
+    ----------
+    x : value at which to evaluate the p.d.f
+    scale : standard deviation of the associated normal
+    schape : mean of the associated normal
+    """
+    if x <= 0:
+        return 0.0
+
+    gs = _gamma_fun_forint (shape)
+    scale_to_shape = pow(scale, shape)
+    x = pow(x, shape - 1) * np.exp (- x / scale) / (gs * scale_to_shape)
+    return x
+
+
+
 # compute the pdf of a multinormal distribution
 def get_pdf_multinormal(x, covariances, m):
     """

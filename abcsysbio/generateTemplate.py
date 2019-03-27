@@ -256,6 +256,7 @@ def generate_template(source, filename, sumname, dataname=None):
         out_file.write("#       normal, mean, variance \n")
         out_file.write("#       uniform, lower, upper \n")
         out_file.write("#       lognormal, mean, variance \n\n")
+        out_file.write("#       gamma, shape, scale \n\n")
 
         out_file.write("<initial>\n")
 
