@@ -86,7 +86,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species3 species3 species3 </fit>
+<fit> species5 species5 species5 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
@@ -127,7 +127,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species3 species3 species3 </fit>
+<fit> species4 species4 species4 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
@@ -166,7 +166,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species1 species1 species1 </fit>
+<fit> species2 species2 species2 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
@@ -203,7 +203,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species3 species3 species3 </fit>
+<fit> species5 species5 species5 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
