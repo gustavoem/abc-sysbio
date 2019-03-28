@@ -104,12 +104,12 @@
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> lognormal 1 3 </parameter2>
-<parameter3 realName='k2'> lognormal 0 1 </parameter3>
-<parameter4 realName='kcat3'> lognormal 1 1 </parameter4>
-<parameter5 realName='Km3'> lognormal 9 2 </parameter5>
-<parameter6 realName='V4'> lognormal 1 1 </parameter6>
-<parameter7 realName='Km4'> lognormal 6 1 </parameter7>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
+<parameter6 realName='V4'>    gamma 2 1 </parameter6>
+<parameter7 realName='Km4'>   gamma 2 100 </parameter7>
 </parameters>
 </model1>
 
@@ -144,10 +144,10 @@
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> lognormal 1 3 </parameter2>
-<parameter3 realName='k2'> lognormal 0 1 </parameter3>
-<parameter4 realName='kcat3'> lognormal 1 1 </parameter4>
-<parameter5 realName='Km3'> lognormal 9 2 </parameter5>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
 </parameters>
 </model2>
 
@@ -182,14 +182,14 @@
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> lognormal 1 3 </parameter2>
-<parameter3 realName='k2'> lognormal 0 1 </parameter3>
-<parameter4 realName='kcat3'> lognormal 1 1 </parameter4>
-<parameter5 realName='Km3'> lognormal 9 2 </parameter5>
-<parameter6 realName='V4'> lognormal 1 1 </parameter6>
-<parameter7 realName='Km4'> lognormal 6 1 </parameter7>
-<parameter8 realName='V5'> constant 0 1 </parameter8>
-<parameter9 realName='Km5'> constant 6 1 </parameter9>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
+<parameter6 realName='V4'>    gamma 2 1 </parameter6>
+<parameter7 realName='Km4'>   gamma 2 100  </parameter7>
+<parameter8 realName='V5'>    gamma 2 0.4  </parameter8>
+<parameter9 realName='Km5'>   gamma 2 100 </parameter9>
 </parameters>
 </model3>
 
@@ -224,12 +224,12 @@
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> lognormal 1 3 </parameter2>
-<parameter3 realName='k2'> lognormal 0 1 </parameter3>
-<parameter4 realName='kcat3'> lognormal 1 1 </parameter4>
-<parameter5 realName='Km3'> lognormal 9 2 </parameter5>
-<parameter6 realName='V4'> lognormal 1 1 </parameter6>
-<parameter7 realName='Km4'> lognormal 6 1 </parameter7>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
+<parameter6 realName='V4'>    gamma 2 1 </parameter6>
+<parameter7 realName='Km4'>   gamma 2 100 </parameter7>
 </parameters>
 </model4>
 
