@@ -21,7 +21,7 @@
 <!--# Multiple epsilon schedules can be specified by giving additional vectors enclosed in <e2> </e2>, <e3> </e3> etc-->
 <!--# NOTE: the parser always reads them in order and ignores the tag value-->
 <epsilon> 
- <e1> 350 320 300 270 230 190 160 130 100 70 </e1> 
+ <e1> 200 100 50 30 10 5 3 2 1 </e1> 
 </epsilon> 
 
 
