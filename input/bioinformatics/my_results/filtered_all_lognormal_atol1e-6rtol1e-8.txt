@@ -1,0 +1,93 @@
+>>>>>>> Using local version of abcsmc.py
+>>>>>>> Using local version of abcodesolve.py
+
+ALGORITHM INFO
+modelnumber: 4
+restart: False
+particles: 100
+beta: 1
+dt: 0.01
+manual epsilon:
+	 350.0  320.0  300.0  270.0  230.0  190.0  160.0  130.0  100.0  70.0 
+kernel: 1
+model kernel: 0.7
+model prior: [0.25, 0.25, 0.25, 0.25]
+DATA:
+	times: [2.0, 5.0, 10.0, 20.0, 40.0, 60.0, 100.0]
+	vars:
+	 0.16402689458418454  0.40034289207564355  0.5665621767311084  0.574962397138512  0.3894699834664409  0.22928650237370302  0.057392055308998255 
+	 0.16220655195043066  0.40815414068331146  0.5872388809739998  0.5783891706013443  0.38623474009848685  0.2364339020532645  0.042510510312669066 
+	 0.14189294289556045  0.4078691448463911  0.5809792444973938  0.5768747725796879  0.38201552122917326  0.21217779088751895  0.04652377654095159 
+MODELS: 4
+	npar: 7
+	nspecies: 5
+	name: model1
+	source: model1.xml
+	type: ODE
+	fit: ['sample_points[:,4]', 'sample_points[:,4]', 'sample_points[:,4]']
+	init: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None)]
+	prior: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None)]
+	logp: False
+
+
+	npar: 6
+	nspecies: 4
+	name: model2
+	source: model2.xml
+	type: ODE
+	fit: ['sample_points[:,3]', 'sample_points[:,3]', 'sample_points[:,3]']
+	init: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None)]
+	prior: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None)]
+	logp: False
+
+
+	npar: 5
+	nspecies: 3
+	name: model3
+	source: model3.xml
+	type: ODE
+	fit: ['sample_points[:,1]', 'sample_points[:,1]', 'sample_points[:,1]']
+	init: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None)]
+	prior: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None)]
+	logp: False
+
+
+	npar: 8
+	nspecies: 7
+	name: model4
+	source: model4.xml
+	type: ODE
+	fit: ['sample_points[:,4]', 'sample_points[:,4]', 'sample_points[:,4]']
+	init: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=0, value=0.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None)]
+	prior: [prior(type=0, value=1.0, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=None, sigma=None, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None), prior(type=3, value=None, mean=None, variance=None, lower_bound=None, upper_bound=None, mu=1.0, sigma=0.2, shape=None, scale=None)]
+	logp: False
+
+
+#### Seeding random number generator :  2
+Looking for delay
+Looking for delay
+Looking for delay
+Looking for delay
+### iteration:1, eps=['350.00'], sampled=100, accepted=100.0%
+	 model marginals                  : [0.3100000000000001, 0.2800000000000001, 0.22000000000000006, 0.19000000000000003]
+### iteration:2, eps=['320.00'], sampled=105, accepted=95.2%
+	 model marginals                  : [0.6159567485276444, 0.034692038467847845, 0.003481573492606285, 0.3458696395119014]
+### iteration:3, eps=['300.00'], sampled=109, accepted=91.7%
+	 model marginals                  : [0.7093242242511499, 0.011605558616787748, 0.0010448109399052489, 0.2780254061921571]
+### iteration:4, eps=['270.00'], sampled=117, accepted=85.5%
+	 model marginals                  : [0.579893940031749, 0.004578978210181141, 0.000708685875416567, 0.4148183958826534]
+### iteration:5, eps=['230.00'], sampled=129, accepted=77.5%
+	 model marginals                  : [0.8456465390276533, 0.0008769064382417737, 0.0001115894808344571, 0.15336496505327046]
+### iteration:6, eps=['190.00'], sampled=119, accepted=84.0%
+	 model marginals                  : [0.8895949721448302, 0.00017791686237321165, 3.589894955096377e-05, 0.11019121204324521]
+### iteration:7, eps=['160.00'], sampled=115, accepted=87.0%
+	 model marginals                  : [0.9848189994583639, 2.5457385254757834e-05, 3.444438313008613e-06, 0.01515209871806843]
+### iteration:8, eps=['130.00'], sampled=123, accepted=81.3%
+	 model marginals                  : [0.967268896395312, 7.180274289431595e-06, 6.163980517873181e-07, 0.03272330693234721]
+	 dead models                      : [2]
+### iteration:9, eps=['100.00'], sampled=124, accepted=80.6%
+	 model marginals                  : [0.9984005360221289, 5.871396893392811e-07, 0, 0.0015988768381816028]
+	 dead models                      : [1, 2]
+### iteration:10, eps=['70.00'], sampled=119, accepted=84.0%
+	 model marginals                  : [0.9933070172884247, 0, 0, 0.006692982711575034]
+	 dead models                      : [1, 2]
