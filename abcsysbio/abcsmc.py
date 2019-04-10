@@ -323,6 +323,8 @@ class Abcsmc:
             sampled_model_indexes = self.sample_model_from_prior()
             sampled_params = self.sample_parameters_from_prior(sampled_model_indexes)
 
+            print "Sampled param: ", str(sampled_params)
+
             accepted_index, distances, traj = self.simulate_and_compare_to_data(sampled_model_indexes, sampled_params,
                                                                                 epsilon=0, do_comp=False)
 
@@ -490,7 +492,7 @@ class Abcsmc:
         self.distances = []
 
         return results
-
+ 
     def fill_values(self, particle_data):
         """
         Save particle data from pickled array into the corresponding attributes of this abc_smc object.
@@ -569,6 +571,8 @@ class Abcsmc:
                 this_model_parameters.append(sampled_params[mapping[i]])
 
             sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
+
+            print ("Model parameters: ", str (this_model_parameters))
             if self.debug == 2:
                 print '\t\t\tsimulation dimensions:', sims.shape
 
@@ -581,6 +585,8 @@ class Abcsmc:
                 for k in range(self.beta):
                     sample_points = sims[i, k, :, :]
                     points = transform_data_for_fitting(self.models[model].fit, sample_points)
+
+                    print ("Simulated point ", str (points), " and now calculating the distance.")
                     if do_comp:
                         distance = self.distancefn(points, self.data.values, this_model_parameters[i], model)
                         dist = check_below_threshold(distance, epsilon)
@@ -588,6 +594,14 @@ class Abcsmc:
                         distance = 0
                         dist = True
 
+                    if check_below_threshold (distance, epsilon):
+                        for x in points[0]:
+                            if x < 0:
+                                print ("Accepted a point with negative parameter values:")
+                                print (points)
+                                while (True):
+                                    continue
+                    
                     this_dist.append(distance)
                     this_traj.append(points)
 
@@ -726,18 +740,43 @@ class Abcsmc:
                 #  perturbation kernel
                 for param in range(num_params):
                     sample[param] = self.parameters_prev[particle][param]
-
+    
+                # TODO: Does the perturb fun actually calculate the prior?
+                # AHA! It returns 1 always!
                 prior_prob = self.perturbfn(sample, model.prior, self.kernels[model_num],
                                             self.kernel_type, self.special_cases[model_num])
-
-                if self.debug == 2:
-                    print "\t\t\tsampled p prob:", prior_prob
-                    print "\t\t\tnew:", sample
-                    print "\t\t\told:", self.parameters_prev[particle]
-
+                
+                prior_prob = self.compute_particle_prior (sample, model)
+                    
             samples.append(sample)
 
         return samples
+
+
+    def compute_particle_prior(self, particle, model):
+        particle_prior = 1
+        for n in range (len (model.prior)):
+            x = 1.0
+            this_prior = model.prior[n]
+
+            if this_prior.type == PriorType.constant:
+                x = 1
+
+            if this_prior.type == PriorType.normal:
+                x = statistics.get_pdf_gauss(this_prior.mean, np.sqrt(this_prior.variance), particle[n])
+
+            if this_prior.type == PriorType.uniform:
+                x = statistics.get_pdf_uniform(this_prior.lower_bound, this_prior.upper_bound, particle[n])
+
+            if this_prior.type == PriorType.lognormal:
+                x = statistics.get_pdf_lognormal(this_prior.mu, np.sqrt(this_prior.sigma), particle[n])
+
+            if this_prior.type == PriorType.gamma:
+                x = statistics.get_pdf_gamma(this_prior.shape, this_prior.scale, particle[n])
+
+            particle_prior = particle_prior * x
+        return particle_prior
+
 
     def compute_particle_weights(self):
         """

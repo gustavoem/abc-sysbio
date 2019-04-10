@@ -228,8 +228,25 @@ def perturb_particle(params, priors, kernel, kernel_type, special_cases):
             # if we do not care about the value of prior_prob, then here: x=1.0
 
             if priors[n].type == PriorType.uniform:
-                x = statistics.get_pdf_uniform(priors[n].lower_bound, priors[n].upper_bound, params[n])
+                x = statistics.get_pdf_uniform(priors[n].lower_bound, 
+                        priors[n].upper_bound, params[n])
 
+            if priors[n].type == PriorType.constant:
+                x = 1
+
+            if priors[n].type == PriorType.normal:
+                x = statistics.get_pdf_gauss(priors[n].mean, 
+                        numpy.sqrt(priors[n].variance), params[n])
+
+            if priors[n].type == PriorType.lognormal:
+                x = statistics.get_pdf_lognormal(priors[n].mu, 
+                        numpy.sqrt(priors[n].sigma), params[n])
+
+            if priors[n].type == PriorType.gamma:
+                x = statistics.get_pdf_gamma(priors[n].shape, 
+                        priors[n].scale, params[n])
+
+            
                 # if priors[n][0]==3:
                 #    x=statistics.getPdfLognormal(priors[n][1],priors[n][2],params[n])
                 # if we do not care about the value of prior_prob, then here: x=1.0 if params[n]>=0 and 0 otherwise
