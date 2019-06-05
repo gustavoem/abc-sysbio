@@ -143,7 +143,7 @@ def get_kernel(kernel_type, kernel, population, weights):
 
 
 # Here params refers to one particle
-# The function changes params in place and returns the probability (which may be zero)
+# The function changes params in place
 def perturb_particle(params, priors, kernel, kernel_type, special_cases):
     np = len(priors)
 
@@ -177,10 +177,6 @@ def perturb_particle(params, priors, kernel, kernel_type, special_cases):
 
             params[n] = params[n] + delta
             ind += 1
-
-        # this is not the actual value of the pdf but we only require it to be non zero
-        return 1.0
-
     else:
         if kernel_type == KernelType.component_wise_uniform:
             ind = 0
@@ -218,42 +214,6 @@ def perturb_particle(params, priors, kernel, kernel_type, special_cases):
             for n in kernel[0]:
                 params[n] = tmp[ind]
                 ind += 1
-
-        # compute the likelihood
-        prior_prob = 1
-        for n in range(np):
-            x = 1.0
-            # if priors[n][0]==1:
-            #    x=statistics.getPdfGauss(priors[n][1], numpy.sqrt(priors[n][2]), params[n])
-            # if we do not care about the value of prior_prob, then here: x=1.0
-
-            if priors[n].type == PriorType.uniform:
-                x = statistics.get_pdf_uniform(priors[n].lower_bound, 
-                        priors[n].upper_bound, params[n])
-
-            if priors[n].type == PriorType.constant:
-                x = 1
-
-            if priors[n].type == PriorType.normal:
-                x = statistics.get_pdf_gauss(priors[n].mean, 
-                        numpy.sqrt(priors[n].variance), params[n])
-
-            if priors[n].type == PriorType.lognormal:
-                x = statistics.get_pdf_lognormal(priors[n].mu, 
-                        numpy.sqrt(priors[n].sigma), params[n])
-
-            if priors[n].type == PriorType.gamma:
-                x = statistics.get_pdf_gamma(priors[n].shape, 
-                        priors[n].scale, params[n])
-
-            
-                # if priors[n][0]==3:
-                #    x=statistics.getPdfLognormal(priors[n][1],priors[n][2],params[n])
-                # if we do not care about the value of prior_prob, then here: x=1.0 if params[n]>=0 and 0 otherwise
-
-            prior_prob = prior_prob * x
-
-        return prior_prob
 
 
 # Here params and params0 refer to one particle each.

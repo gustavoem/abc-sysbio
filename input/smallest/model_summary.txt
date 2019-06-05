@@ -1,0 +1,112 @@
+Model 1
+name: model1
+source: model1.xml
+
+number of compartments: 1
+number of reactions: 4
+number of rules: 0
+number of functions: 0
+number of events: 0
+
+Species with initial values: 4
+S1:	A	species1	(200.0)
+S2:	B	species2	(20.0)
+S3:	AB	species3	(0.0)
+S4:	C	species4	(200.0)
+
+Parameter: 7 (the first parameter is a global parameter)
+(0 parameter is treated as species)
+P1:	compartment	compartment1	(1.0)
+P2:	k1	parameter1	(0.00017)
+P3:	k2	parameter2	(0.4)
+P4:	kcat3	parameter3	(2.0)
+P5:	Km3	parameter4	(1640.0)
+P6:	V4	parameter5	(1.0)
+P7:	Km4	parameter6	(107.0)
+
+############################################################
+
+Model 2
+name: model2
+source: model2.xml
+
+number of compartments: 1
+number of reactions: 3
+number of rules: 0
+number of functions: 0
+number of events: 0
+
+Species with initial values: 4
+S1:	A	species1	(200.0)
+S2:	B	species2	(20.0)
+S3:	AB	species3	(0.0)
+S4:	C	species4	(200.0)
+
+Parameter: 5 (the first parameter is a global parameter)
+(0 parameter is treated as species)
+P1:	compartment	compartment1	(1.0)
+P2:	k1	parameter1	(0.00017)
+P3:	k2	parameter2	(0.4)
+P4:	kcat3	parameter3	(2.0)
+P5:	Km3	parameter4	(1640.0)
+
+############################################################
+
+Model 3
+name: model3
+source: model3.xml
+
+number of compartments: 1
+number of reactions: 5
+number of rules: 0
+number of functions: 0
+number of events: 0
+
+Species with initial values: 4
+S1:	A	species1	(200.0)
+S2:	B	species2	(20.0)
+S3:	AB	species3	(0.0)
+S4:	C	species4	(200.0)
+
+Parameter: 9 (the first parameter is a global parameter)
+(0 parameter is treated as species)
+P1:	compartment	compartment1	(1.0)
+P2:	k1	parameter1	(0.00017)
+P3:	k2	parameter2	(0.4)
+P4:	kcat3	parameter3	(2.0)
+P5:	Km3	parameter4	(1640.0)
+P6:	V4	parameter5	(1.0)
+P7:	Km4	parameter6	(107.0)
+P8:	V5	parameter7	(0.21)
+P9:	Km5	parameter8	(140.0)
+
+############################################################
+
+Model 4
+name: model4
+source: model4.xml
+
+number of compartments: 1
+number of reactions: 4
+number of rules: 0
+number of functions: 0
+number of events: 0
+
+Species with initial values: 4
+S1:	A	species1	(200.0)
+S2:	B	species2	(20.0)
+S3:	AB	species3	(0.0)
+S4:	C	species4	(200.0)
+
+Parameter: 7 (the first parameter is a global parameter)
+(0 parameter is treated as species)
+P1:	compartment	compartment1	(1.0)
+P2:	k1	parameter1	(0.00017)
+P3:	k2	parameter2	(0.4)
+P4:	kcat3	parameter3	(2.0)
+P5:	Km3	parameter4	(1640.0)
+P6:	V4	parameter5	(1.0)
+P7:	Km4	parameter6	(107.0)
+
+############################################################
+

@@ -1,28 +1,22 @@
-
 <input>
-
-
 ######################## number of models
 # Number of models for which details are described in this input file
-<modelnumber> 2 </modelnumber>
+<modelnumber> 4 </modelnumber>
 ######################## restart
 # Restart from previous (pickled) population?
 <restart> False </restart>
 
 ######################## epsilon schedule
 # Automatic epsilon schedule. Provide a vector of final epsilons and the alpha (defaults to 0.9)
-<!--<autoepsilon>-->
-<!--<finalepsilon> 1.0 </finalepsilon>-->
-<!--<alpha> 0.9 </alpha>-->
-<!--</autoepsilon>-->
+<autoepsilon>
+<finalepsilon> 1.0 </finalepsilon>
+<alpha> 0.9 </alpha>
+</autoepsilon>
 
-# OR
-# Series of epsilons. (Whitespace delimited list)
-# Multiple epsilon schedules can be specified by giving additional vectors enclosed in <e2> </e2>, <e3> </e3> etc
-# NOTE: the parser always reads them in order and ignores the tag value
-<epsilon> 
- <e1> 350 320 300 270 230 190 160 130 100 70 </e1> 
-</epsilon> 
+<!--# OR-->
+<!--# Series of epsilons. (Whitespace delimited list)-->
+<!--# Multiple epsilon schedules can be specified by giving additional vectors enclosed in <e2> </e2>, <e3> </e3> etc-->
+<!--# NOTE: the parser always reads them in order and ignores the tag value-->
 
 
 ######################## particles
@@ -49,8 +43,8 @@
 
 ######################## ODE solver control : OPTIONAL
 # rtol and atol can be specified here. If the model is stiff then making these small might help the simulation to run
-<rtol> 1e-2 </rtol>
-<atol> 1e-4 </atol>
+<rtol> 1e-6 </rtol>
+<atol> 1e-8 </atol>
 
 ######################## User-supplied data
 <data>
@@ -74,6 +68,47 @@
 ######################## Models
 <models>
 <model1>
+<name> model1 </name>
+<source> model1.xml </source>
+
+# type: the method used to simulate your model. ODE, SDE or Gillespie.
+<type> ODE </type>
+
+
+# Fitting information.
+# If fit is None, all species in the model are fitted to the data in the order they are listed in the model.
+# Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
+# Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
+# For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
+<fit> species5 species5 species5 </fit>
+
+# Priors on initial conditions and parameters:
+# one of 
+#       constant, value 
+#       normal, mean, variance 
+#       uniform, lower, upper 
+#       lognormal, mean, variance 
+
+<initial>
+ <ic1> constant 1.0 </ic1>
+ <ic2> constant 0.0 </ic2>
+ <ic3> constant 1.0 </ic3>
+ <ic4> constant 0.0 </ic4>
+ <ic5> constant 0.0 </ic5>
+</initial>
+
+<parameters>
+<parameter1 realName='compartment'> constant 1.0 </parameter1>
+<parameter2 realName='k1'> gamma 1 3 </parameter2>
+<parameter3 realName='k1'> gamma 1 3 </parameter3>
+<parameter4 realName='k2'> gamma 1 3 </parameter4>
+<parameter5 realName='k1'> gamma 1 3 </parameter5>
+<parameter6 realName='V'>  gamma 1 3 </parameter6>
+<parameter7 realName='Km'> gamma 1 3 </parameter7>
+</parameters>
+</model1>
+
+<model2>
 <name> model2 </name>
 <source> model2.xml </source>
 
@@ -104,15 +139,15 @@
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> lognormal 1 0.2 </parameter2>
-<parameter3 realName='V'>  lognormal 1 0.2 </parameter3>
-<parameter4 realName='Km'> lognormal 1 0.2 </parameter4>
-<parameter5 realName='Km'> lognormal 1 0.2 </parameter5>
-<parameter6 realName='V'>  lognormal 1 0.2 </parameter6>
+<parameter2 realName='k1'> gamma 1 3 </parameter2>
+<parameter3 realName='V'>  gamma 1 3 </parameter3>
+<parameter4 realName='Km'> gamma 1 3 </parameter4>
+<parameter5 realName='Km'> gamma 1 3 </parameter5>
+<parameter6 realName='V'>  gamma 1 3 </parameter6>
 </parameters>
-</model1>
+</model2>
 
-<model2>
+<model3>
 <name> model3 </name>
 <source> model3.xml </source>
 
@@ -142,13 +177,58 @@
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='V'>  lognormal 1 0.2 </parameter2>
-<parameter3 realName='Km'> lognormal 1 0.2 </parameter3>
-<parameter4 realName='Km'> lognormal 1 0.2 </parameter4>
-<parameter5 realName='V'>  lognormal 1 0.2 </parameter5>
+<parameter2 realName='V'>  gamma 1 3 </parameter2>
+<parameter3 realName='Km'> gamma 1 3 </parameter3>
+<parameter4 realName='Km'> gamma 1 3 </parameter4>
+<parameter5 realName='V'>  gamma 1 3 </parameter5>
 </parameters>
-</model2>
+</model3>
+
+<model4>
+<name> model4 </name>
+<source> model4.xml </source>
+
+# type: the method used to simulate your model. ODE, SDE or Gillespie.
+<type> ODE </type>
+
+
+# Fitting information.
+# If fit is None, all species in the model are fitted to the data in the order they are listed in the model.
+# Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
+# Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
+# For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
+<fit> species5 species5 species5 </fit>
+
+# Priors on initial conditions and parameters:
+# one of 
+#       constant, value 
+#       normal, mean, variance 
+#       uniform, lower, upper 
+#       lognormal, mean, variance 
+
+<initial>
+ <ic1> constant 1.0 </ic1>
+ <ic2> constant 0.0 </ic2>
+ <ic3> constant 1.0 </ic3>
+ <ic4> constant 0.0 </ic4>
+ <ic5> constant 0.0 </ic5>
+ <ic6> constant 1.0 </ic6>
+ <ic7> constant 0.0 </ic7>
+</initial>
+
+<parameters>
+<parameter1 realName='compartment'> constant 1.0 </parameter1>
+<parameter2 realName='k1'> gamma 1 3 </parameter2>
+<parameter3 realName='k1'> gamma 1 3 </parameter3>
+<parameter4 realName='k2'> gamma 1 3 </parameter4>
+<parameter5 realName='k1'> gamma 1 3 </parameter5>
+<parameter6 realName='k1'> gamma 1 3 </parameter6>
+<parameter7 realName='k2'> gamma 1 3 </parameter7>
+<parameter8 realName='k1'> gamma 1 3 </parameter8>
+</parameters>
+</model4>
 
 </models>
+
 </input>
 

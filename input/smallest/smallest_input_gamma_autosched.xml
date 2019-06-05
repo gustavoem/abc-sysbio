@@ -1,4 +1,7 @@
+
 <input>
+
+
 ######################## number of models
 # Number of models for which details are described in this input file
 <modelnumber> 4 </modelnumber>
@@ -8,18 +11,14 @@
 
 ######################## epsilon schedule
 # Automatic epsilon schedule. Provide a vector of final epsilons and the alpha (defaults to 0.9)
-<!--<autoepsilon>-->
-<!--<finalepsilon> 1.0 </finalepsilon>-->
-<!--<alpha> 0.9 </alpha>-->
-<!--</autoepsilon>-->
-
-<!--# OR-->
-<!--# Series of epsilons. (Whitespace delimited list)-->
-<!--# Multiple epsilon schedules can be specified by giving additional vectors enclosed in <e2> </e2>, <e3> </e3> etc-->
-<!--# NOTE: the parser always reads them in order and ignores the tag value-->
-<epsilon> 
- <e1> 200 100 50 30 10 5 3 2 1 </e1> 
-</epsilon> 
+# OR
+# Series of epsilons. (Whitespace delimited list)
+# Multiple epsilon schedules can be specified by giving additional vectors enclosed in <e2> </e2>, <e3> </e3> etc
+# NOTE: the parser always reads them in order and ignores the tag value
+<autoepsilon>
+<finalepsilon> 1.0 </finalepsilon>
+<alpha> 0.9 </alpha>
+</autoepsilon>
 
 
 ######################## particles
@@ -53,7 +52,7 @@
 <data>
 # times: For ABC SMC, times must be a whitespace delimited list
 # In simulation mode these are the timepoints for which the simulations will be output
-<times> 2 5 10 20 40 60 100 </times>
+<times> 0 142.8 285.7 428.5 571.4 714.2 857.1 1000 </times>
 
 
 # variables: For ABC SMC, whitespace delimited lists of concentrations (ODE or SDE) or molecule numbers (Gillespie)
@@ -62,9 +61,9 @@
 # For simulation these data are ignored
 # See fitting instruction below if the dimensionality of your data sets differ from the dimensionality of your model
 <variables>
- <var1> 0.16402689458418454 0.40034289207564355 0.5665621767311084 0.574962397138512 0.3894699834664409 0.22928650237370302 0.057392055308998255 </var1>
- <var2> 0.16220655195043066 0.40815414068331146 0.5872388809739998 0.5783891706013443 0.38623474009848685 0.2364339020532645 0.042510510312669066 </var2>
- <var3> 0.14189294289556045 0.4078691448463911 0.5809792444973938 0.5768747725796879 0.38201552122917326 0.21217779088751895 0.04652377654095159 </var3>
+<var1> 20.00667852389437 60.61216368988336 129.15382976361977 160.94770380950294 167.13973577865534 168.0444204765364 168.20277670996927 168.22288662735917 </var1>
+<var2> 19.991732700731877 60.58317273344466 129.1408440571498 160.93778130566355 167.1299925347945 168.0676080758877 168.18978134982405 168.19844761482938 </var2>
+<var3> 19.98466829242517 60.60898763705779 129.15445130775765 160.9470905892251 167.1345840698311 168.0706483616953 168.20459315989754 168.22521227376407 </var3>
 </variables>
 </data>
 
@@ -83,7 +82,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species5 species5 species5 </fit>
+<fit> species2 species2 species2 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
@@ -93,21 +92,20 @@
 #       lognormal, mean, variance 
 
 <initial>
- <ic1> constant 1.0 </ic1>
- <ic2> constant 0.0 </ic2>
- <ic3> constant 1.0 </ic3>
- <ic4> constant 0.0 </ic4>
- <ic5> constant 0.0 </ic5>
+ <ic1> constant 200.0 </ic1>
+ <ic2> constant 20.0 </ic2>
+ <ic3> constant 0.0 </ic3>
+ <ic4> constant 200.0 </ic4>
 </initial>
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> gamma 1 3 </parameter2>
-<parameter3 realName='k1'> gamma 1 3 </parameter3>
-<parameter4 realName='k2'> gamma 1 3 </parameter4>
-<parameter5 realName='k1'> gamma 1 3 </parameter5>
-<parameter6 realName='V'>  gamma 1 3 </parameter6>
-<parameter7 realName='Km'> gamma 1 3 </parameter7>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
+<parameter6 realName='V4'>    gamma 2 1 </parameter6>
+<parameter7 realName='Km4'>   gamma 2 100 </parameter7>
 </parameters>
 </model1>
 
@@ -124,7 +122,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species4 species4 species4 </fit>
+<fit> species2 species2 species2 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
@@ -134,19 +132,18 @@
 #       lognormal, mean, variance 
 
 <initial>
- <ic1> constant 1.0 </ic1>
- <ic2> constant 0.0 </ic2>
- <ic3> constant 1.0 </ic3>
- <ic4> constant 0.0 </ic4>
+ <ic1> constant 200.0 </ic1>
+ <ic2> constant 20.0 </ic2>
+ <ic3> constant 0.0 </ic3>
+ <ic4> constant 200.0 </ic4>
 </initial>
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> gamma 1 3 </parameter2>
-<parameter3 realName='V'>  gamma 1 3 </parameter3>
-<parameter4 realName='Km'> gamma 1 3 </parameter4>
-<parameter5 realName='Km'> gamma 1 3 </parameter5>
-<parameter6 realName='V'>  gamma 1 3 </parameter6>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
 </parameters>
 </model2>
 
@@ -173,17 +170,22 @@
 #       lognormal, mean, variance 
 
 <initial>
- <ic1> constant 1.0 </ic1>
- <ic2> constant 0.0 </ic2>
- <ic3> constant 1.0 </ic3>
+ <ic1> constant 200.0 </ic1>
+ <ic2> constant 20.0 </ic2>
+ <ic3> constant 0.0 </ic3>
+ <ic4> constant 200.0 </ic4>
 </initial>
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='V'>  gamma 1 3 </parameter2>
-<parameter3 realName='Km'> gamma 1 3 </parameter3>
-<parameter4 realName='Km'> gamma 1 3 </parameter4>
-<parameter5 realName='V'>  gamma 1 3 </parameter5>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
+<parameter6 realName='V4'>    gamma 2 1 </parameter6>
+<parameter7 realName='Km4'>   gamma 2 100  </parameter7>
+<parameter8 realName='V5'>    gamma 2 0.4  </parameter8>
+<parameter9 realName='Km5'>   gamma 2 100 </parameter9>
 </parameters>
 </model3>
 
@@ -200,7 +202,7 @@
 # Otherwise, give a whitespace delimited list of fitting instrictions the same length as the dimensions of your data.
 # Use speciesN to denote the Nth species in your model. Simple arithmetic operations can be performed on these.
 # For example, to fit the sum of the first two species in the model to your first variable, write fit: species1+species2
-<fit> species5 species5 species5 </fit>
+<fit> species2 species2 species2 </fit>
 
 # Priors on initial conditions and parameters:
 # one of 
@@ -210,24 +212,20 @@
 #       lognormal, mean, variance 
 
 <initial>
- <ic1> constant 1.0 </ic1>
- <ic2> constant 0.0 </ic2>
- <ic3> constant 1.0 </ic3>
- <ic4> constant 0.0 </ic4>
- <ic5> constant 0.0 </ic5>
- <ic6> constant 1.0 </ic6>
- <ic7> constant 0.0 </ic7>
+ <ic1> constant 200.0 </ic1>
+ <ic2> constant 20.0 </ic2>
+ <ic3> constant 0.0 </ic3>
+ <ic4> constant 200.0 </ic4>
 </initial>
 
 <parameters>
 <parameter1 realName='compartment'> constant 1.0 </parameter1>
-<parameter2 realName='k1'> gamma 1 3 </parameter2>
-<parameter3 realName='k1'> gamma 1 3 </parameter3>
-<parameter4 realName='k2'> gamma 1 3 </parameter4>
-<parameter5 realName='k1'> gamma 1 3 </parameter5>
-<parameter6 realName='k1'> gamma 1 3 </parameter6>
-<parameter7 realName='k2'> gamma 1 3 </parameter7>
-<parameter8 realName='k1'> gamma 1 3 </parameter8>
+<parameter2 realName='k1'>    gamma 1 0.01 </parameter2>
+<parameter3 realName='k2'>    gamma 2 0.5 </parameter3>
+<parameter4 realName='kcat3'> gamma 4 1 </parameter4>
+<parameter5 realName='Km3'>   gamma 2 1500 </parameter5>
+<parameter6 realName='V4'>    gamma 2 1 </parameter6>
+<parameter7 realName='Km4'>   gamma 2 100 </parameter7>
 </parameters>
 </model4>
 
