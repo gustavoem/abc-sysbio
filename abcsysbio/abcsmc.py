@@ -17,7 +17,7 @@ priors:
               a 2D list.
               priors[model_number][parameter_number] is a NamedTuple of type prior.
               The .type attribute is a PriorType object (one of PriorType.constant, PriorType.uniform, PriorType.normal,
-              PriorType.lognormal).
+              PriorType.lognormal, PriorType.gamma).
               The other attributes store the appropriate parameters.
 
 fit:      
@@ -39,6 +39,8 @@ fit:
 
 # distances are stored as [nparticle][nbeta][d1, d2, d3 .... ]
 # trajectories are stored as [nparticle][nbeta][ species ][ times ]
+
+print ">>>>>>> Using local version of abcsmc.py"
 
 class AbcsmcResults:
     def __init__(self,
@@ -488,7 +490,7 @@ class Abcsmc:
         self.distances = []
 
         return results
-
+ 
     def fill_values(self, particle_data):
         """
         Save particle data from pickled array into the corresponding attributes of this abc_smc object.
@@ -567,6 +569,7 @@ class Abcsmc:
                 this_model_parameters.append(sampled_params[mapping[i]])
 
             sims = self.models[model].simulate(this_model_parameters, self.data.timepoints, num_simulations, self.beta)
+
             if self.debug == 2:
                 print '\t\t\tsimulation dimensions:', sims.shape
 
@@ -579,6 +582,7 @@ class Abcsmc:
                 for k in range(self.beta):
                     sample_points = sims[i, k, :, :]
                     points = transform_data_for_fitting(self.models[model].fit, sample_points)
+
                     if do_comp:
                         distance = self.distancefn(points, self.data.values, this_model_parameters[i], model)
                         dist = check_below_threshold(distance, epsilon)
@@ -678,6 +682,9 @@ class Abcsmc:
                 if model.prior[param].type == PriorType.lognormal:
                     sample[param] = rnd.lognormal(mean=model.prior[param].mu, sigma=np.sqrt(model.prior[param].sigma))
 
+                if model.prior[param].type == PriorType.gamma:
+                    sample[param] = rnd.gamma(shape=model.prior[param].shape, scale=model.prior[param].scale)
+
             samples.append(sample[:])
 
         return samples
@@ -721,18 +728,39 @@ class Abcsmc:
                 #  perturbation kernel
                 for param in range(num_params):
                     sample[param] = self.parameters_prev[particle][param]
-
-                prior_prob = self.perturbfn(sample, model.prior, self.kernels[model_num],
-                                            self.kernel_type, self.special_cases[model_num])
-
-                if self.debug == 2:
-                    print "\t\t\tsampled p prob:", prior_prob
-                    print "\t\t\tnew:", sample
-                    print "\t\t\told:", self.parameters_prev[particle]
-
+                self.perturbfn(sample, model.prior,\
+                        self.kernels[model_num], self.kernel_type, \
+                        self.special_cases[model_num])
+                
+                prior_prob = self.compute_particle_prior (sample, model)
             samples.append(sample)
-
         return samples
+
+
+    def compute_particle_prior(self, particle, model):
+        particle_prior = 1
+        for n in range (len (model.prior)):
+            x = 1.0
+            this_prior = model.prior[n]
+
+            if this_prior.type == PriorType.constant:
+                x = 1
+
+            if this_prior.type == PriorType.normal:
+                x = statistics.get_pdf_gauss(this_prior.mean, np.sqrt(this_prior.variance), particle[n])
+
+            if this_prior.type == PriorType.uniform:
+                x = statistics.get_pdf_uniform(this_prior.lower_bound, this_prior.upper_bound, particle[n])
+
+            if this_prior.type == PriorType.lognormal:
+                x = statistics.get_pdf_lognormal(this_prior.mu, np.sqrt(this_prior.sigma), particle[n])
+
+            if this_prior.type == PriorType.gamma:
+                x = statistics.get_pdf_gamma(this_prior.shape, this_prior.scale, particle[n])
+
+            particle_prior = particle_prior * x
+        return particle_prior
+
 
     def compute_particle_weights(self):
         """
@@ -771,6 +799,10 @@ class Abcsmc:
 
                 if this_prior.type == PriorType.lognormal:
                     x = statistics.get_pdf_lognormal(this_prior.mu, np.sqrt(this_prior.sigma), this_param[n])
+
+                if this_prior.type == PriorType.gamma:
+                    x = statistics.get_pdf_gamma(this_prior.shape, this_prior.scale, this_param[n])
+
                 particle_prior = particle_prior * x
 
             # self.b[k] is a variable indicating whether the simulation corresponding to particle k was accepted
