@@ -17,7 +17,7 @@ priors:
               a 2D list.
               priors[model_number][parameter_number] is a NamedTuple of type prior.
               The .type attribute is a PriorType object (one of PriorType.constant, PriorType.uniform, PriorType.normal,
-              PriorType.lognormal, PriorType.gamma).
+              PriorType.lognormal).
               The other attributes store the appropriate parameters.
 
 fit:      
@@ -682,9 +682,6 @@ class Abcsmc:
                 if model.prior[param].type == PriorType.lognormal:
                     sample[param] = rnd.lognormal(mean=model.prior[param].mu, sigma=np.sqrt(model.prior[param].sigma))
 
-                if model.prior[param].type == PriorType.gamma:
-                    sample[param] = rnd.gamma(shape=model.prior[param].shape, scale=model.prior[param].scale)
-
             samples.append(sample[:])
 
         return samples
@@ -755,9 +752,6 @@ class Abcsmc:
             if this_prior.type == PriorType.lognormal:
                 x = statistics.get_pdf_lognormal(this_prior.mu, np.sqrt(this_prior.sigma), particle[n])
 
-            if this_prior.type == PriorType.gamma:
-                x = statistics.get_pdf_gamma(this_prior.shape, this_prior.scale, particle[n])
-
             particle_prior = particle_prior * x
         return particle_prior
 
@@ -799,9 +793,6 @@ class Abcsmc:
 
                 if this_prior.type == PriorType.lognormal:
                     x = statistics.get_pdf_lognormal(this_prior.mu, np.sqrt(this_prior.sigma), this_param[n])
-
-                if this_prior.type == PriorType.gamma:
-                    x = statistics.get_pdf_gamma(this_prior.shape, this_prior.scale, this_param[n])
 
                 particle_prior = particle_prior * x
 

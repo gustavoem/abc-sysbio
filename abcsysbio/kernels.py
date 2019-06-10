@@ -317,15 +317,6 @@ def get_auxilliary_info(kernel_type, models, parameters, model_objs, kernel):
                         scale = numpy.sqrt(this_kernel[2][kernel_index])
                         ret[k][param_index] = 1 - norm.cdf(0, mean, scale)
                     
-                    # if prior is gamma, trucation for the negative values
-                    # TODO: write this properly.... I just copied lines
-                    # above and changed to gamma 
-                    if this_prior[param_index].type == PriorType.gamma:
-                        shape = parameters[k][param_index]
-                        scale = numpy.sqrt(this_kernel[2][kernel_index])
-                        ret[k][param_index] = 1 - norm.cdf(0, shape, scale)
-
-
                     kernel_index += 1
         elif kernel_type == KernelType.multivariate_normal:
             up = list()
@@ -339,9 +330,6 @@ def get_auxilliary_info(kernel_type, models, parameters, model_objs, kernel):
                     low.append(-float('inf'))
                     up.append(float('inf'))
                 if this_prior[param_index].type == PriorType.lognormal:
-                    low.append(0)
-                    up.append(float('inf'))
-                if this_prior[param_index].type == PriorType.gamma:
                     low.append(0)
                     up.append(float('inf'))
                 mean.append(parameters[k][param_index])
@@ -360,9 +348,6 @@ def get_auxilliary_info(kernel_type, models, parameters, model_objs, kernel):
                     low.append(-float('inf'))
                     up.append(float('inf'))
                 if this_prior[param_index].type == PriorType.lognormal:
-                    low.append(0)
-                    up.append(float('inf'))
-                if this_prior[param_index].type == PriorType.gamma:
                     low.append(0)
                     up.append(float('inf'))
                 mean.append(parameters[k][param_index])
